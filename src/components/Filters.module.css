@@ -1,0 +1,79 @@
+.filtersContainer {
+    background-color: var(--color-white);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+    /* margin-top movido a clase .overlap */
+    /* Superponer sobre el Hero ligeramente */
+    position: relative;
+    z-index: 10;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+.overlap {
+    margin-top: -60px;
+}
+
+.filterGroup {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label {
+    font-weight: 600;
+    color: var(--color-primary);
+    font-size: 0.9rem;
+}
+
+.select,
+.input {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    width: 100%;
+    color: var(--color-accent);
+}
+
+.select:focus,
+.input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.searchBtn {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 12px 30px;
+    border-radius: 4px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 46px;
+    /* Alinear con inputs */
+}
+
+.searchBtn:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+    .filtersContainer {
+        flex-direction: column;
+        margin-top: 20px;
+        gap: 15px;
+    }
+
+    .searchBtn {
+        width: 100%;
+    }
+}

@@ -1,0 +1,81 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    /* Inicialmente transparente */
+    color: var(--color-white);
+}
+
+.scrolled {
+    background-color: var(--color-white);
+    color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.navLinks {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+.navLink {
+    position: relative;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.navLink:hover {
+    color: var(--color-secondary);
+}
+
+.mobileMenuBtn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    font-size: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navLinks {
+        display: none;
+        /* Ocultar en móvil por defecto, aquí iría la lógica del menú hamburguesa */
+        /* Para implementar menú móvil completo se requiere estado en JS */
+        position: absolute;
+        top: var(--nav-height);
+        left: 0;
+        width: 100%;
+        background-color: var(--color-white);
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: var(--shadow-md);
+        color: var(--color-primary);
+    }
+
+    .navLinks.open {
+        display: flex;
+    }
+
+    .mobileMenuBtn {
+        display: block;
+    }
+}
