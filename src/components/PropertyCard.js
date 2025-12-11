@@ -6,10 +6,10 @@ export default function PropertyCard({ property }) {
     // Valores por defecto para fallback (esqueleto visual)
     const {
         _id = '#',
-        title = 'Apartamento de Lujo',
+        title = 'Propiedad Exclusiva',
         price = 0,
-        location = { city: 'Miami', state: 'FL' },
-        features = { bedrooms: 2, bathrooms: 2, area: 120 },
+        location = { city: 'Buenos Aires', state: 'CABA' },
+        features = { bedrooms: 2, bathrooms: 1, area: 60 },
         images = ['https://via.placeholder.com/400x300?text=Propiedad'], // Placeholder
         status = 'For Sale',
         type = 'Apartment'
@@ -22,12 +22,29 @@ export default function PropertyCard({ property }) {
         maximumFractionDigits: 0
     }).format(price);
 
+    // Mapeo de estados y tipos para mostrar en español
+    const statusMap = {
+        'For Sale': 'En Venta',
+        'For Rent': 'Alquiler',
+        'Reserved': 'Reservado',
+        'Sold': 'Vendido'
+    };
+
+    const typeMap = {
+        'House': 'Casa',
+        'Apartment': 'Depto',
+        'Condo': 'Condo',
+        'Penthouse': 'Penthouse',
+        'Land': 'Terreno',
+        'Commercial': 'Local'
+    };
+
     return (
         <Link href={`/propiedades/${_id}`}>
             <div className={styles.card}>
                 <div className={styles.imageContainer}>
                     <span className={`${styles.statusBadge} ${status === 'Reserved' ? styles.secondaryBadge : ''}`}>
-                        {status === 'For Sale' ? 'En Venta' : status === 'For Rent' ? 'Alquiler' : 'Reservado'}
+                        {statusMap[status] || status}
                     </span>
                     <img
                         src={images[0]}
@@ -47,7 +64,7 @@ export default function PropertyCard({ property }) {
 
                     <div className={styles.features}>
                         <div className={styles.feature}>
-                            <FaBed /> <span>{features.bedrooms} Hab</span>
+                            <FaBed /> <span>{features.bedrooms} Dorm.</span>
                         </div>
                         <div className={styles.feature}>
                             <FaBath /> <span>{features.bathrooms} Baños</span>

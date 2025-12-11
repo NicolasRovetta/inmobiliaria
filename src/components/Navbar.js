@@ -49,7 +49,7 @@ export default function Navbar() {
                 <li className={styles.navLink}><Link href="/contacto">Contacto</Link></li>
                 {/* Acceso al panel de administración */}
                 <li className={styles.navLink}>
-                    <Link href="/admin" style={{ color: 'var(--color-secondary)' }}>Propietarios</Link>
+                    <Link href="/admin" style={{ color: 'var(--color-secondary)' }}>Panel Adm</Link>
                 </li>
             </ul>
         </nav>

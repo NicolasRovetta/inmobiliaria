@@ -8,6 +8,7 @@ Este proyecto es un esqueleto base para crear sitios inmobiliarios escalables y 
 - **MongoDB + Mongoose**: Base de datos NoSQL flexible para propiedades.
 - **CSS Modules + Variables**: Estilos vainilla modulares, fáciles de personalizar y sin dependencias pesadas.
 - **React Icons**: Iconografía ligera.
+- **EmailJS**: Integrado para formularios de contacto sin backend (`@emailjs/browser` ya instalado).
 
 ## Configuración Inicial
 
@@ -15,12 +16,28 @@ Este proyecto es un esqueleto base para crear sitios inmobiliarios escalables y 
    ```bash
    npm install
    ```
+   (Nota: `@emailjs/browser` ya está incluido en package.json)
 
-2. **Configurar Base de Datos**:
-   Crea un archivo `.env.local` en la raíz del proyecto y agrega tu conexión a MongoDB:
+2. **Configurar Variables**:
+   Crea un archivo `.env.local` en la raíz (no lo subas a GitHub) y configura:
+   
+   **Base de Datos**:
    ```env
    MONGODB_URI=mongodb+srv://usuario:password@cluster.mongodb.net/inmobiliaria
    ```
+
+   **Formulario de Contacto (EmailJS)**:
+   Solo necesario al entregar al cliente final.
+   
+   1. Regístrate en [EmailJS](https://www.emailjs.com/).
+   2. Crea un servicio y un template.
+   3. Agrega estas claves en `.env.local`:
+   ```env
+   NEXT_PUBLIC_EMAILJS_SERVICE_ID=tu_service_id
+   NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=tu_template_id
+   NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=tu_public_key
+   ```
+   *El formulario en `/contacto` detectará automáticamente estas variables.*
 
 3. **Ejecutar en Desarrollo**:
    ```bash
@@ -40,6 +57,8 @@ Este proyecto es un esqueleto base para crear sitios inmobiliarios escalables y 
 
 - **Colores y Fuentes**: Edita `src/app/globals.css` para cambiar la identidad visual (`--color-primary`, `--color-secondary`).
 - **Datos**: El admin panel en `/admin` permite gestionar propiedades. Asegúrate de tener la DB conectada.
+- **Redes Sociales**: Para cambiar los enlaces de las redes sociales del pie de página, edita el archivo:
+  `src/components/Footer.js` (busca la sección comentada).
 
 ## Despliegue
 

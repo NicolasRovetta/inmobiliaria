@@ -30,7 +30,7 @@ export default function Filters({ onSearch, overlap = false }) {
                 <input
                     type="text"
                     name="location"
-                    placeholder="Miami, NY, Buenos Aires..."
+                    placeholder="Palermo, Recoleta, Nordelta..."
                     className={styles.input}
                     value={filters.location}
                     onChange={handleChange}
@@ -43,13 +43,15 @@ export default function Filters({ onSearch, overlap = false }) {
                     <option value="">Todas</option>
                     <option value="House">Casa</option>
                     <option value="Apartment">Departamento</option>
-                    <option value="Condo">Condo</option>
+                    <option value="Condo">PH</option>
                     <option value="Penthouse">Penthouse</option>
+                    <option value="Land">Terreno</option>
+                    <option value="Commercial">Local / Oficina</option>
                 </select>
             </div>
 
             <div className={styles.filterGroup}>
-                <label className={styles.label}>Precio Mín ($)</label>
+                <label className={styles.label}>Precio Mín (USD)</label>
                 <input
                     type="number"
                     name="minPrice"
@@ -61,7 +63,7 @@ export default function Filters({ onSearch, overlap = false }) {
             </div>
 
             <div className={styles.filterGroup}>
-                <label className={styles.label}>Precio Máx ($)</label>
+                <label className={styles.label}>Precio Máx (USD)</label>
                 <input
                     type="number"
                     name="maxPrice"
