@@ -1,24 +1,18 @@
 import Link from 'next/link';
+import Property from '@/models/Property';
+import dbConnect from '@/lib/db';
 import { FaBed, FaBath, FaRulerCombined, FaMapMarkerAlt, FaCheck, FaArrowLeft } from 'react-icons/fa';
 
 // Mock function para simular fetch de datos
 async function getProperty(id) {
-    // Aquí iría el fetch a la DB: await Property.findById(id);
-    return {
-        _id: id,
-        title: 'Penthouse Exclusivo en Brickell',
-        description: 'Experimente el pináculo de la vida de lujo en este impresionante penthouse. Con vistas panorámicas de la bahía y el horizonte de la ciudad, esta residencia ofrece acabados de primera calidad, techos altos y una amplia terraza privada. El edificio cuenta con servicios de conserjería 24/7, spa, gimnasio y piscina infinita.',
-        price: 3500000,
-        location: { city: 'Miami', state: 'FL', address: '123 Brickell Ave' },
-        features: { bedrooms: 4, bathrooms: 4.5, area: 350 },
-        amenities: ['Piscina Privada', 'Seguridad 24/7', 'Gimnasio', 'Vista al Mar', 'Smart Home', 'Spa'],
-        images: [
-            'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800&auto=format&fit=crop'
-        ],
-        status: 'For Sale',
-        type: 'Penthouse'
-    };
+    await dbConnect();
+    const property = await Property.findById(id).lean();
+    if (!property) return null;
+
+    // Convert _id and dates to string to avoid serialization issues
+    property._id = property._id.toString();
+    property.createdAt = property.createdAt?.toString();
+    return property;
 }
 
 export async function generateMetadata({ params }) {
@@ -30,7 +24,20 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function PropertyDetailPage({ params }) {
-    const property = await getProperty(params.id);
+    const { id } = await params;
+    const property = await getProperty(id);
+
+    if (!property) {
+        return <div className="container" style={{ paddingTop: '100px' }}>Propiedad no encontrada</div>;
+    }
+
+    const statusMap = {
+        'For Sale': 'En Venta',
+        'For Rent': 'Alquiler',
+        'Reserved': 'Reservado',
+        'Sold': 'Vendido',
+        'Rented': 'Alquilado'
+    };
 
     return (
         <div className="container" style={{ padding: '40px 20px', paddingTop: '100px' }}>
@@ -61,6 +68,17 @@ export default async function PropertyDetailPage({ params }) {
                         }}>
                             {property.type}
                         </span>
+                        <span style={{
+                            background: property.status === 'Reserved' ? '#f59e0b' : property.status === 'Sold' ? '#ef4444' : property.status === 'Rented' ? '#ef4444' : '#10b981',
+                            color: 'white',
+                            padding: '5px 12px',
+                            borderRadius: '4px',
+                            fontSize: '0.9rem',
+                            textTransform: 'uppercase',
+                            marginLeft: '10px'
+                        }}>
+                            {statusMap[property.status] || property.status}
+                        </span>
                         <h1 style={{ fontSize: '2.5rem', marginTop: '10px', color: 'var(--color-primary)' }}>{property.title}</h1>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#64748b', marginTop: '5px' }}>
                             <FaMapMarkerAlt /> {property.location.address}, {property.location.city}, {property.location.state}
@@ -87,12 +105,12 @@ export default async function PropertyDetailPage({ params }) {
 
                     <h2 style={{ fontSize: '1.5rem', marginBottom: '15px' }}>Amenidades</h2>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '15px' }}>
-                        {property.amenities.map((item, idx) => (
+                        {property.amenities && property.amenities.length > 0 ? property.amenities.map((item, idx) => (
                             <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                 <div style={{ color: 'var(--color-success)' }}><FaCheck /></div>
                                 {item}
                             </div>
-                        ))}
+                        )) : <p>No specific amenities listed.</p>}
                     </div>
                 </div>
 

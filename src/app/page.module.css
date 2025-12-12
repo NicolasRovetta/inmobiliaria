@@ -1,7 +1,7 @@
 .hero {
   height: 80vh;
   min-height: 600px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=1920&auto=format&fit=crop');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1589178657688-644788c03c57?q=80&w=1920&auto=format&fit=crop');
   background-size: cover;
   background-position: center;
   position: relative;

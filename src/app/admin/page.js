@@ -142,17 +142,23 @@ export default function AdminDashboard() {
         }
     };
 
-    const handleStatusChange = async (property) => {
-        const newStatus = property.status === 'Reserved' ? 'For Sale' : 'Reserved';
+    const handleStatusChange = async (property, newStatus) => {
         try {
             const res = await fetch(`/api/properties/${property._id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: newStatus })
             });
-            if (res.ok) fetchProperties();
+
+            if (res.ok) {
+                // Opción: refetch o actualización optimista
+                fetchProperties();
+            } else {
+                alert('Error al actualizar el estado');
+            }
         } catch (error) {
             console.error(error);
+            alert('Error de conexión');
         }
     };
 
@@ -432,23 +438,39 @@ export default function AdminDashboard() {
                                                 color: property.status === 'Reserved' ? '#d97706' : '#059669'
                                             }}
                                         >
-                                            {property.status === 'For Sale' ? 'En Venta' : property.status === 'Reserved' ? 'Reservado' : property.status}
+                                            {
+                                                {
+                                                    'For Sale': 'En Venta',
+                                                    'For Rent': 'Alquiler',
+                                                    'Reserved': 'Reservado',
+                                                    'Sold': 'Vendido',
+                                                    'Rented': 'Alquilado'
+                                                }[property.status] || property.status
+                                            }
                                         </span>
                                     </td>
                                     <td>
-                                        <div style={{ display: 'flex', gap: '5px' }}>
+                                        <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
                                             <button
                                                 className={`${styles.actionBtn} ${styles.editBtn}`}
                                                 onClick={() => handleEdit(property)}
                                             >
                                                 Editar
                                             </button>
-                                            <button
-                                                className={`${styles.actionBtn} ${styles.statusBtn}`}
-                                                onClick={() => handleStatusChange(property)}
+
+                                            <select
+                                                className={styles.select}
+                                                style={{ width: 'auto', padding: '6px', fontSize: '0.9rem' }}
+                                                value={property.status}
+                                                onChange={(e) => handleStatusChange(property, e.target.value)}
                                             >
-                                                {property.status === 'Reserved' ? 'Liberar' : 'Reservar'}
-                                            </button>
+                                                <option value="For Sale">En Venta</option>
+                                                <option value="For Rent">Alquiler</option>
+                                                <option value="Reserved">Reservado</option>
+                                                <option value="Sold">Vendido</option>
+                                                <option value="Rented">Alquilado</option>
+                                            </select>
+
                                             <button
                                                 className={`${styles.actionBtn} ${styles.deleteBtn}`}
                                                 onClick={() => handleDelete(property._id)}

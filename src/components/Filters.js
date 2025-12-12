@@ -1,15 +1,29 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // Added useEffect
+import { useRouter, useSearchParams } from 'next/navigation'; // Import hooks
 import styles from './Filters.module.css';
 
-export default function Filters({ onSearch, overlap = false }) {
+export default function Filters({ overlap = false }) {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
     const [filters, setFilters] = useState({
         location: '',
         type: '',
         minPrice: '',
         maxPrice: ''
     });
+
+    // Initialize filters from URL params on mount
+    useEffect(() => {
+        setFilters({
+            location: searchParams.get('location') || '',
+            type: searchParams.get('type') || '',
+            minPrice: searchParams.get('minPrice') || '',
+            maxPrice: searchParams.get('maxPrice') || ''
+        });
+    }, [searchParams]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -18,9 +32,15 @@ export default function Filters({ onSearch, overlap = false }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (onSearch) {
-            onSearch(filters);
-        }
+
+        // Build query string ensuring empty values are excluded if desired, or handled by server
+        const params = new URLSearchParams();
+        if (filters.location) params.set('location', filters.location);
+        if (filters.type) params.set('type', filters.type);
+        if (filters.minPrice) params.set('minPrice', filters.minPrice);
+        if (filters.maxPrice) params.set('maxPrice', filters.maxPrice);
+
+        router.push(`?${params.toString()}`);
     };
 
     return (

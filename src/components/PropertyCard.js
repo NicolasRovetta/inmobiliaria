@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './PropertyCard.module.css';
 import { FaBed, FaBath, FaRulerCombined, FaMapMarkerAlt } from 'react-icons/fa';
 import Link from 'next/link';
@@ -27,7 +29,8 @@ export default function PropertyCard({ property }) {
         'For Sale': 'En Venta',
         'For Rent': 'Alquiler',
         'Reserved': 'Reservado',
-        'Sold': 'Vendido'
+        'Sold': 'Vendido',
+        'Rented': 'Alquilado'
     };
 
     const typeMap = {
@@ -47,10 +50,11 @@ export default function PropertyCard({ property }) {
                         {statusMap[status] || status}
                     </span>
                     <img
-                        src={images[0]}
+                        src={images && images.length > 0 ? images[0] : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800&auto=format&fit=crop'}
                         alt={title}
                         className={styles.image}
                         loading="lazy"
+                        onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800&auto=format&fit=crop'; }}
                     />
                 </div>
 

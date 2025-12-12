@@ -2,14 +2,20 @@ import styles from './page.module.css';
 import Filters from '@/components/Filters';
 import PropertyCard from '@/components/PropertyCard';
 import Link from 'next/link';
-import { PROPERTIES } from '@/data/properties';
+import Property from '@/models/Property';
+import dbConnect from '@/lib/db';
 
-export default function Home() {
-  // Mostramos solo las primeras 6 u 8 en home? O todas?
-  // El usuario pidió "sumale mas", así que dejaremos todas o una selección grande.
-  // Mostraremos las primeras 6 para que no sea infinito, o todas si así se prefiere. 
-  // Mostremos 6 aleatorias o las primeras 6 "Destacadas".
-  const featured = PROPERTIES.slice(0, 6);
+export const dynamic = 'force-dynamic'; // Ensure hydration matches
+
+async function getFeaturedProperties() {
+  await dbConnect();
+  // Fetch featured or just latest 6
+  const properties = await Property.find({}).limit(6).lean();
+  return properties.map(p => ({ ...p, _id: p._id.toString(), createdAt: p.createdAt?.toString() }));
+}
+
+export default async function Home() {
+  const featured = await getFeaturedProperties();
 
   return (
     <div className={styles.main}>
