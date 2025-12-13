@@ -47,6 +47,7 @@ const PropertySchema = new mongoose.Schema({
         wifi: Boolean
         // Se pueden agregar más características dinámicamente si se cambia este esquema a algo más flexible como Map
     },
+    amenities: [String], // Lista de amenidades (Gym, SUM, Seguridad 24hs, etc.)
     images: [String], // Array de URLs de imágenes
     featured: {
         type: Boolean,

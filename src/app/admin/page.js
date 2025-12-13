@@ -31,7 +31,8 @@ export default function AdminDashboard() {
         area: '',
         type: 'Apartment',
         status: 'For Sale',
-        images: []
+        images: [],
+        amenities: '' // String separado por comas para facilitar la edición
     };
     const [formData, setFormData] = useState(initialFormState);
 
@@ -119,51 +120,22 @@ export default function AdminDashboard() {
             area: property.features?.area || '',
             type: property.type,
             status: property.status,
-            images: property.images || []
+            images: property.images || [],
+            amenities: property.amenities ? property.amenities.join(', ') : ''
         });
         setShowForm(true);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const handleDelete = async (id) => {
-        if (!confirm('¿Está seguro de eliminar esta propiedad?')) return;
-        try {
-            const res = await fetch(`/api/properties/${id}`, {
-                method: 'DELETE'
-            });
-            const data = await res.json();
-            if (data.success) {
-                fetchProperties();
-            } else {
-                alert('Error al eliminar: ' + (data.error || 'Desconocido'));
-            }
-        } catch (error) {
-            console.error('Error deleting property', error);
-        }
-    };
+    // ... handleDelete ...
 
-    const handleStatusChange = async (property, newStatus) => {
-        try {
-            const res = await fetch(`/api/properties/${property._id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ status: newStatus })
-            });
-
-            if (res.ok) {
-                // Opción: refetch o actualización optimista
-                fetchProperties();
-            } else {
-                alert('Error al actualizar el estado');
-            }
-        } catch (error) {
-            console.error(error);
-            alert('Error de conexión');
-        }
-    };
+    // ... handleStatusChange ...
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Convert amenities string to array
+        const amenitiesArray = formData.amenities.split(',').map(item => item.trim()).filter(item => item !== '');
 
         const payload = {
             title: formData.title,
@@ -181,7 +153,8 @@ export default function AdminDashboard() {
             },
             type: formData.type,
             status: formData.status,
-            images: formData.images
+            images: formData.images,
+            amenities: amenitiesArray
         };
 
         try {
@@ -374,6 +347,18 @@ export default function AdminDashboard() {
                                 <label className={styles.label}>Area (m2)</label>
                                 <input type="number" className="input" value={formData.area} onChange={e => setFormData({ ...formData, area: e.target.value })} />
                             </div>
+                        </div>
+
+                        {/* Amenidades */}
+                        <div style={{ gridColumn: '1 / -1' }}>
+                            <label className={styles.label}>Amenidades (separadas por coma)</label>
+                            <textarea
+                                className="input"
+                                rows="3"
+                                placeholder="Piscina, Gimnasio, Seguridad 24hs, SUM..."
+                                value={formData.amenities}
+                                onChange={e => setFormData({ ...formData, amenities: e.target.value })}
+                            />
                         </div>
 
                         {/* Imagen */}

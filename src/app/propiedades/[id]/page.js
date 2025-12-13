@@ -5,7 +5,11 @@ import { FaBed, FaBath, FaRulerCombined, FaMapMarkerAlt, FaCheck, FaArrowLeft } 
 
 // Mock function para simular fetch de datos
 async function getProperty(id) {
+    if (!id) return null;
     await dbConnect();
+    // Validate valid Mongo ID to avoid casting error crash
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) return null;
+
     const property = await Property.findById(id).lean();
     if (!property) return null;
 
@@ -16,7 +20,15 @@ async function getProperty(id) {
 }
 
 export async function generateMetadata({ params }) {
-    const property = await getProperty(params.id);
+    const { id } = await params;
+    const property = await getProperty(id);
+
+    if (!property) {
+        return {
+            title: 'Propiedad no encontrada | Luxury Estate'
+        };
+    }
+
     return {
         title: `${property.title} | Luxury Estate`,
         description: property.description.substring(0, 160)
