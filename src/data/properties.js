@@ -62,7 +62,7 @@ export const PROPERTIES = [
         location: { city: 'Pilar', state: 'BA', address: 'Km 50 Panamericana' },
         features: { bedrooms: 4, bathrooms: 3, area: 280 },
         images: [
-            'https://images.unsplash.com/photo-1600596542815-e32cb7156944?q=80&w=800&auto=format&fit=crop',
+            '/casa-quinta-pilar.jpg',
             'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=800&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=800&auto=format&fit=crop'
         ],
