@@ -160,7 +160,7 @@ export const PROPERTIES = [
         location: { city: 'Buenos Aires', state: 'CABA', address: 'Conde 2000' },
         features: { bedrooms: 2, bathrooms: 1, area: 95 },
         images: [
-            'https://images.unsplash.com/photo-1584622050111-993d42b59edd?q=80&w=800&auto=format&fit=crop',
+            '/ph-colegiales.jpg',
             'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=800&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=800&auto=format&fit=crop'
         ],
