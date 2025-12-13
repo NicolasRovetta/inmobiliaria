@@ -3,6 +3,7 @@ import Filters from '@/components/Filters';
 import PropertyCard from '@/components/PropertyCard';
 import Property from '@/models/Property';
 import dbConnect from '@/lib/db';
+import { Suspense } from 'react';
 
 export const dynamic = 'force-dynamic';
 
@@ -57,7 +58,9 @@ export default async function PropertiesPage({ searchParams }) {
 
             {/* Filtros */}
             <div style={{ marginBottom: '40px' }}>
-                <Filters />
+                <Suspense fallback={<div>Cargando filtros...</div>}>
+                    <Filters />
+                </Suspense>
             </div>
 
             {filteredProperties.length > 0 ? (

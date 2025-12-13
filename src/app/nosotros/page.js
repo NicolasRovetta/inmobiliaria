@@ -10,7 +10,7 @@ export default function AboutPage() {
         <div className="container" style={{ padding: '80px 20px' }}>
             <div className={styles.sectionHeader}>
                 <h1 className={styles.sectionTitle}>Nuestra Historia</h1>
-                <p className={styles.sectionSubtitle}>Más de 20 años redefiniendo el mercado inmobiliario de lujo.</p>
+                <p className={styles.sectionSubtitle}>Desde 2016 construyendo confianza en el mercado inmobiliario.</p>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '50px', alignItems: 'center' }}>
@@ -23,13 +23,13 @@ export default function AboutPage() {
                 </div>
                 <div style={{ lineHeight: '1.8', color: '#475569' }}>
                     <p style={{ marginBottom: '20px' }}>
-                        Fundada en 2005, <strong>Luxury Estate</strong> nació con la visión de ofrecer un servicio incomparable en el sector de bienes raíces de alta gama. Nos especializamos en conectar a compradores exigentes con propiedades extraordinarias en Miami y Nueva York.
+                        Fundada en 2016, <strong>Luxury Estate</strong> abrió sus puertas con el objetivo de elevar el estándar del servicio inmobiliario. Lo que comenzó como un proyecto fundado en la pasión y el compromiso, hoy se consolida como una firma referente, combinando la calidez del trato personalizado con una visión de excelencia y profesionalismo.
                     </p>
                     <p style={{ marginBottom: '20px' }}>
-                        Nuestro equipo de expertos comprende que una propiedad no es solo una estructura, sino un estilo de vida. Por eso, seleccionamos minuciosamente cada inmueble en nuestro portafolio para asegurar que cumpla con los más altos estándares de diseño, ubicación y confort.
+                        Entendemos la importancia de cada decisión inmobiliaria en nuestro país. Por eso, nuestro enfoque se basa en la transparencia, el asesoramiento integral y un conocimiento profundo del mercado local. No solo gestionamos propiedades; acompañamos proyectos de vida, inversiones y nuevos comienzos con la seriedad que nos caracteriza.
                     </p>
                     <p>
-                        Ya sea que busque un ático con vistas al Central Park o una mansión frente al mar en South Beach, estamos aquí para hacer realidad sus sueños inmobiliarios.
+                        Ya sea que busques tu próximo hogar, una oportunidad de inversión estratégica o ese espacio soñado para tu familia, estamos aquí para brindarte la seguridad y el respaldo que merecés en cada paso del camino.
                     </p>
                 </div>
             </div>

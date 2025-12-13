@@ -30,17 +30,27 @@ export default function Filters({ overlap = false }) {
         setFilters(prev => ({ ...prev, [name]: value }));
     };
 
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Build query string ensuring empty values are excluded if desired, or handled by server
+        // Build query string
         const params = new URLSearchParams();
         if (filters.location) params.set('location', filters.location);
         if (filters.type) params.set('type', filters.type);
         if (filters.minPrice) params.set('minPrice', filters.minPrice);
         if (filters.maxPrice) params.set('maxPrice', filters.maxPrice);
 
-        router.push(`?${params.toString()}`);
+        const queryString = params.toString();
+
+        // If we are not on the properties page, redirect there
+        if (!window.location.href.includes('/propiedades')) {
+            router.push(`/propiedades?${queryString}`);
+        } else {
+            // If we are already there, just push the params
+            router.push(`?${queryString}`);
+        }
     };
 
     return (

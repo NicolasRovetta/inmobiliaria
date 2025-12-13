@@ -3,6 +3,7 @@
 import styles from './PropertyCard.module.css';
 import { FaBed, FaBath, FaRulerCombined, FaMapMarkerAlt } from 'react-icons/fa';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function PropertyCard({ property }) {
     // Valores por defecto para fallback (esqueleto visual)
@@ -45,16 +46,17 @@ export default function PropertyCard({ property }) {
     return (
         <Link href={`/propiedades/${_id}`}>
             <div className={styles.card}>
-                <div className={styles.imageContainer}>
-                    <span className={`${styles.statusBadge} ${status === 'Reserved' ? styles.secondaryBadge : ''}`}>
+                <div className={styles.imageContainer} style={{ position: 'relative', height: '250px' }}>
+                    <span className={`${styles.statusBadge} ${status === 'Reserved' ? styles.secondaryBadge : ''}`} style={{ zIndex: 10 }}>
                         {statusMap[status] || status}
                     </span>
-                    <img
+                    <Image
                         src={images && images.length > 0 ? images[0] : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800&auto=format&fit=crop'}
                         alt={title}
-                        className={styles.image}
-                        loading="lazy"
-                        onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800&auto=format&fit=crop'; }}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        style={{ objectFit: 'cover' }}
+                        priority={false}
                     />
                 </div>
 

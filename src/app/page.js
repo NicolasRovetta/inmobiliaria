@@ -4,8 +4,9 @@ import PropertyCard from '@/components/PropertyCard';
 import Link from 'next/link';
 import Property from '@/models/Property';
 import dbConnect from '@/lib/db';
+import { Suspense } from 'react';
 
-export const dynamic = 'force-dynamic'; // Ensure hydration matches
+export const revalidate = 60; // ISR: Revalidate every 60 seconds
 
 async function getFeaturedProperties() {
   await dbConnect();
@@ -22,11 +23,13 @@ export default async function Home() {
       {/* Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>Encontrá tu Hogar Ideal</h1>
-          <p className={styles.heroSubtitle}>Propiedades exclusivas en las mejores ubicaciones de Argentina.</p>
+          <h1 className={styles.heroTitle}>Descubrí tu Próximo Hogar</h1>
+          <p className={styles.heroSubtitle}>Propiedades exclusivas en las zonas más cotizadas de Buenos Aires.</p>
 
           {/* El filtro se superpone aquí solo en HOME */}
-          <Filters overlap={true} />
+          <Suspense fallback={null}>
+            <Filters overlap={true} />
+          </Suspense>
         </div>
       </section>
 
@@ -61,15 +64,15 @@ export default async function Home() {
           <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '2rem', flexWrap: 'wrap' }}>
             <div style={{ textAlign: 'center', maxWidth: '300px' }}>
               <h3>Trayectoria</h3>
-              <p>Más de 20 años acompañando a familias a encontrar su lugar en el mundo.</p>
+              <p>Desde 2016 liderando el mercado con integridad y resultados comprobables.</p>
             </div>
             <div style={{ textAlign: 'center', maxWidth: '300px' }}>
-              <h3>Confianza</h3>
-              <p>Transparencia y seguridad en cada operación inmobiliaria.</p>
+              <h3>Seguridad</h3>
+              <p>Asesoramiento legal y notarial completo para operaciones transparentes.</p>
             </div>
             <div style={{ textAlign: 'center', maxWidth: '300px' }}>
               <h3>Exclusividad</h3>
-              <p>Acceso a las propiedades más codiciadas del mercado.</p>
+              <p>Acceso off-market a las propiedades más distinguidas.</p>
             </div>
           </div>
         </div>

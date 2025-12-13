@@ -10,17 +10,17 @@ export default function Footer() {
                     <div className={styles.column}>
                         <h3>LUXURY ESTATE</h3>
                         <p>
-                            Somos líderes en el mercado inmobiliario de lujo en Argentina.
-                            Comprometidos con la excelencia y la satisfacción exclusiva de nuestros clientes.
+                            Desde 2016, referentes en el mercado inmobiliario premium de Buenos Aires.
+                            Excelencia, discreción y resultados.
                         </p>
                     </div>
 
                     <div className={styles.column}>
                         <h3>Contacto</h3>
                         <ul>
-                            <li>Av. Del Libertador 1234, Buenos Aires</li>
-                            <li>+54 11 4321-5678</li>
-                            <li>contacto@luxuryestate.com.ar</li>
+                            <li>Av. Juana Manso 1500, Puerto Madero</li>
+                            <li>+54 11 5555-0123</li>
+                            <li>info@luxuryestate.com.ar</li>
                         </ul>
                     </div>
 
