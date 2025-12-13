@@ -118,7 +118,7 @@ export const PROPERTIES = [
         location: { city: 'Mendoza', state: 'MDZ', address: 'Valle de Uco' },
         features: { bedrooms: 3, bathrooms: 3, area: 400 },
         images: [
-            'https://images.unsplash.com/photo-1562601579-599a51702eeb?q=80&w=800&auto=format&fit=crop',
+            '/casa-vinedo-mendoza.jpg',
             'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=800&auto=format&fit=crop'
         ],
